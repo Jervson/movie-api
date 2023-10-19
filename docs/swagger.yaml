@@ -1,0 +1,155 @@
+openapi: 3.0.2
+info:
+    title: movie-api
+    version: 1.0.0
+    description: >-
+        ### This is a Swagger UI for our Movies API  \n\n### Error handling\nErrors are presented using the
+        HTTP status codes 400-599. The response include a more detailed explanation about the error in the
+        body.\n\n```\n{\n  \"error\": \"Cleartext explanation of the error that occurred\"\n}\n```\n\n###
+        Generic API errors\nThese error responses can be returned by any of the described endpoints.\n\n| HTTP
+        status  |  Description |\n|---|---|\n| 400| Bad input parameters or invalid request. More information
+        can be found in the response body.\n| 401| The consumer does not have access to the requested resource
+        or the provided token is not valid.\n| 404| The requested resource can not be found or the user does
+        not have access to the resource.\n| 5XX| A server error has occurred while processing the request.
+paths:
+    /movies:
+        description: return a list of all movies on api
+        get:
+            requestBody: {}
+            tags:
+                - movies
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Movie:
+                                    value: |
+                                        [
+                                            { id: 1, name: "Shark Attack", description: "very cool" },
+                                            { id: 1, name: "Shark Attack 2", description: "very cool" },
+                                            { id: 1, name: "Shark Attack 3", description: "very cool" },
+                                            { id: 1, name: "Shark Attack 4", description: "very cool" },
+                                            { id: 1, name: "Shark Attack 5", description: "very cool" }
+                                        ]
+                    description: ok
+            description: return a list of all movies on api
+    '/movies/{id}':
+        description: return a movie based on id on api
+        get:
+            tags:
+                - movies
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Movie:
+                                    value: |-
+                                        id: 3
+                                        name: Shark Attack 3
+                                        description: Very cool
+                    description: ok
+            description: return a movie based on id on api
+    /artists:
+        description: |
+            return a list of all artists on api
+        get:
+            tags:
+                - artists
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Artist:
+                                    value: |-
+                                        [
+                                            { id: 1, name: "Kristjan", dob: 2001-08-14, gender: "Male" },
+                                            { id: 2, name: "Paul", dob: 2002-08-14, gender: "Male" },
+                                            { id: 3, name: "Taul", dob: 2003-08-14, gender: "Male" },
+                                            { id: 4, name: "Saul", dob: 2004-08-14, gender: "Male" },
+                                            { id: 5, name: "Siim", dob: 2005-08-14, gender: "Male" },
+                                        ]
+                    description: |
+                        ok
+            description: return a list of all artists on api
+    '/artists/{id}':
+        description: return a artist based on id on api
+        get:
+            tags:
+                - artist
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Artist:
+                                    value: |-
+                                        id: 2
+                                        name: Paul
+                                        dob: 2003-08-14
+                                        gender: Male
+                    description: ok
+            description: return a movie role based on id on api
+    '/movieRoles/{id}/':
+        description: return a movie role based on id on api
+        get:
+            tags:
+                - MovieRoles
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                MovieRole:
+                                    value: |-
+                                        id: 2
+                                        role: Producer
+                    description: ok
+            description: return a movie role based on id on api
+    /movieRoles:
+        description: return a list of all movie roles on api
+        get:
+            tags:
+                - movieRoles
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                MovieRole:
+                                    value: |-
+                                        [
+                                            { id: 1, role "Actor"},
+                                            { id: 2, role "Producer"},
+                                            { id: 3, role "Extra"},
+                                            { id: 4, role "Director"},
+                                            
+                                        ]
+                    description: ok
+            description: return a list of all movie roles on api
