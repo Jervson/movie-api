@@ -4,7 +4,7 @@ const { getBaseurl } = require("./helpers")
 
 // CREATE
 exports.createNew = async (req, res) => {
-    if (!req.body.name || !req.body.price) {
+    if (!req.body.name || !req.body.description) {
         return res.status(400).send({ error: "One or all required parameters are missing" })
     }
     const createdMovie = await movies.create(req.body, {
@@ -28,12 +28,16 @@ exports.getById = async (req, res) => {
 }
 // UPDATE
 exports.editById = async (req, res) => {
-    const updateResult = await movies.update({ ...req.body }, {
+    const foundMovie = await movies.findByPk(req.params.id)
+    if (foundMovie === null) {
+        return res.status(404).send({ error: `Movie not found` })
+    }
+    const updateResult = await movies.update({ ...foundMovie,...req.body }, {
         where: { id: req.params.id },
         fields: ["name", "description"]
     })
     if (updateResult[0] == 0) {
-        return res.status(404).send({ error: "Movie not found" })
+        return res.status(500).send({ error: "update failed" })
     }
     res.status(204)
         .location(`${getBaseurl(req)}/movies/${req.params.id}`)

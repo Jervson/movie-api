@@ -28,12 +28,16 @@ exports.getById = async (req, res) => {
 }
 // UPDATE
 exports.editById = async (req, res) => {
+    const foundArtist = await artists.findByPk(req.params.id)
+    if (foundArtist === null) {
+        return res.status(404).send({ error: `Artist not found` })
+    }
     const updateResult = await artists.update({ ...req.body }, {
         where: { id: req.params.id },
         fields: ["name", "dob", "gender"]
     })
     if (updateResult[0] == 0) {
-        return res.status(404).send({ error: "Artist not found" })
+        return res.status(500).send({ error: "server error" })
     }
     res.status(202)
         .location(`${getBaseurl(req)}/artists/${req.params.id}`)

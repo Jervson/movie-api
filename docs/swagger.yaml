@@ -66,7 +66,7 @@ paths:
             tags:
                 - Movie
             responses:
-                '200':
+                '201':
                     content:
                         application/json:
                             schema:
@@ -77,11 +77,11 @@ paths:
                                 Movie:
                                     value:
                                         -
-                                            id: 97
+                                            id: 2
                                             name: some text
                                             description: some text
                                         -
-                                            id: 64
+                                            id: 37
                                             name: some text
                                             description: some text
                     description: successful
@@ -105,16 +105,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Movie'
+                                $ref: '#/components/schemas/Movie'
                             examples:
                                 Movie:
                                     value:
-                                        -
-                                            id: 1
-                                            name: Shark Attack
-                                            description: cool movie about sharks
+                                        id: 14
+                                        name: some text
+                                        description: some text
                     description: successful
                 '404':
                     description: movie not found
@@ -122,6 +119,12 @@ paths:
                     description: server error
             description: return a movie based on id on api
         put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Movie'
+                required: true
             tags:
                 - Movie
             parameters:
@@ -134,9 +137,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Movie'
+                                $ref: '#/components/schemas/Movie'
+                            examples:
+                                Movie:
+                                    value:
+                                        id: 40
+                                        name: some text
+                                        description: some text
                     description: successful
                 '404':
                     description: movie not found
@@ -151,24 +158,11 @@ paths:
                     in: path
                     required: true
             responses:
-                '200':
+                '204':
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Movie'
-                            examples:
-                                Movie:
-                                    value:
-                                        -
-                                            id: 72
-                                            name: some text
-                                            description: some text
-                                        -
-                                            id: 55
-                                            name: some text
-                                            description: some text
+                                $ref: '#/components/schemas/Movie'
                     description: successful
                 '404':
                     description: movie not found
@@ -221,40 +215,21 @@ paths:
                         examples:
                             Artist:
                                 value:
-                                    -
-                                        id: 99
-                                        name: some text
-                                        dob: '2018-01-17'
-                                        gender: some text
-                                    -
-                                        id: 88
-                                        name: some text
-                                        dob: '2018-01-17'
-                                        gender: some text
+                                    id: 99
+                                    name: some text
+                                    dob: '2018-01-17'
+                                    gender: some text
                 required: true
             tags:
                 - Artist
             responses:
-                '200':
+                '201':
                     content:
                         application/json:
                             schema:
                                 type: array
                                 items:
                                     $ref: '#/components/schemas/Artist'
-                            examples:
-                                Artist:
-                                    value:
-                                        -
-                                            id: 52
-                                            name: some text
-                                            dob: '2018-01-17'
-                                            gender: some text
-                                        -
-                                            id: 74
-                                            name: some text
-                                            dob: '2018-01-17'
-                                            gender: some text
                     description: successful
                 '404':
                     content:
@@ -278,9 +253,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Artist'
+                                $ref: '#/components/schemas/Artist'
                             examples:
                                 Artist:
                                     value:
@@ -296,6 +269,12 @@ paths:
                         server error
             description: return a movie role based on id on api
         put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Artist'
+                required: true
             tags:
                 - Artist
             parameters:
@@ -308,9 +287,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Artist'
+                                $ref: '#/components/schemas/Artist'
                             examples:
                                 Artist:
                                     value:
@@ -332,95 +309,16 @@ paths:
                     in: path
                     required: true
             responses:
-                '200':
+                '204':
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Artist'
+                                $ref: '#/components/schemas/Artist'
                     description: successful
                 '404':
                     description: Artist not found
                 '500':
                     description: server error
-    '/movieRoles/{id}/':
-        description: return a movie role based on id on api
-        get:
-            tags:
-                - MovieRole
-            parameters:
-                -
-                    name: id
-                    in: path
-                    required: true
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/MovieRole'
-                            examples:
-                                MovieRole:
-                                    value:
-                                        -
-                                            id: 1
-                                            role: Actor
-                    description: ok
-                '404':
-                    description: movieRole not found
-                '500':
-                    description: server error
-            description: return a movie role based on id on api
-        put:
-            tags:
-                - MovieRole
-            parameters:
-                -
-                    name: id
-                    in: path
-                    required: true
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/MovieRole'
-                    description: successful
-                '404':
-                    description: movieRole not found
-                '500':
-                    description: server error
-        delete:
-            tags:
-                - MovieRole
-            parameters:
-                -
-                    name: id
-                    in: path
-                    required: true
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/MovieRole'
-                            examples:
-                                movieRole:
-                                    value:
-                                        -
-                                            id: 54
-                                            role: some text
-                                        -
-                                            id: 41
-                                            role: some text
-                    description: successful
     /movieRoles:
         description: return a list of all movie roles on api
         get:
@@ -462,7 +360,7 @@ paths:
             tags:
                 - MovieRole
             responses:
-                '200':
+                '201':
                     content:
                         application/json:
                             schema:
@@ -470,20 +368,93 @@ paths:
                                 items:
                                     $ref: '#/components/schemas/MovieRole'
                             examples:
-                                MovieRole:
+                                movieRole:
                                     value:
-                                        -
-                                            id: 16
-                                            role: some text
-                                        -
-                                            id: 77
-                                            role: some text
+                                        id: 32
+                                        role: some text
                     description: successful
                 '404':
                     description: movieRole not found
                 '500':
                     description: server error
             summary: Post movieRoles
+    '/movieRoles/{id}':
+        description: return a movie role based on id on api
+        get:
+            tags:
+                - MovieRole
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MovieRole'
+                            examples:
+                                MovieRole:
+                                    value:
+                                        -
+                                            id: 1
+                                            role: Actor
+                    description: ok
+                '404':
+                    description: movieRole not found
+                '500':
+                    description: server error
+            description: return a movie role based on id on api
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/MovieRole'
+                required: true
+            tags:
+                - MovieRole
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MovieRole'
+                            examples:
+                                MovieRole:
+                                    value:
+                                        id: 73
+                                        role: some text
+                    description: successful
+                '404':
+                    description: movieRole not found
+                '500':
+                    description: server error
+        delete:
+            tags:
+                - MovieRole
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                '204':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MovieRole'
+                    description: successful
+                '404':
+                    description: movieRole not found
+                '500':
+                    description: server error
 components:
     schemas:
         Artist:

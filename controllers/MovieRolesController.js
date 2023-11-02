@@ -4,15 +4,15 @@ const { getBaseurl } = require("./helpers")
 
 // CREATE
 exports.createNew = async (req, res) => {
-    if (!req.body.name || !req.body.price) {
+    if (!req.body.role) {
         return res.status(400).send({ error: "One or all required parameters are missing" })
     }
-    const createdMovie = await movieRoles.create(req.body, {
+    const createdMovieRole = await movieRoles.create(req.body, {
         fields: ["role"]
     })
     res.status(201)
-        .location(`${getBaseurl(req)}/movies/${createdMovie.id}`)
-        .json(createdMovie)
+        .location(`${getBaseurl(req)}/movies/${createdMovieRole.id}`)
+        .json(createdMovieRole)
 }
 // READ
 exports.getAll = async (req, res) => {
@@ -22,20 +22,24 @@ exports.getAll = async (req, res) => {
     res.json(result)
 }
 exports.getById = async (req, res) => {
-    const foundMovie = await movieRoles.findByPk(req.params.id)
+    const foundMovieRole = await movieRoles.findByPk(req.params.id)
     if (foundMovie === null) {
         return res.status(404).send({ error: `Role not found` })
     }
-    res.json(foundMovie)
+    res.json(foundMovieRole)
 }
 // UPDATE
 exports.editById = async (req, res) => {
+    const foundMovieRole = await movieRoles.findByPk(req.params.id)
+    if (foundMovie === null) {
+        return res.status(404).send({ error: `Role not found` })
+    }
     const updateResult = await movieRoles.update({ ...req.body }, {
         where: { id: req.params.id },
         fields: ["role"]
     })
     if (updateResult[0] == 0) {
-        return res.status(404).send({ error: "Role not found" })
+        return res.status(500).send({ error: "server error" })
     }
     res.status(204)
         .location(`${getBaseurl(req)}/movies/${req.params.id}`)
