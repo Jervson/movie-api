@@ -54,14 +54,8 @@ paths:
                         examples:
                             Movie:
                                 value:
-                                    -
-                                        id: 89
-                                        name: some text
-                                        description: some text
-                                    -
-                                        id: 19
-                                        name: some text
-                                        description: some text
+                                    name: some text
+                                    description: some text
                 required: true
             tags:
                 - Movie
@@ -124,6 +118,11 @@ paths:
                     application/json:
                         schema:
                             $ref: '#/components/schemas/Movie'
+                        examples:
+                            Movie:
+                                value:
+                                    name: ' '
+                                    description: ' '
                 required: true
             tags:
                 - Movie
@@ -209,7 +208,6 @@ paths:
                         examples:
                             Artist:
                                 value:
-                                    id: 99
                                     name: some text
                                     dob: '2018-01-17'
                                     gender: some text
@@ -268,6 +266,12 @@ paths:
                     application/json:
                         schema:
                             $ref: '#/components/schemas/Artist'
+                        examples:
+                            Artist:
+                                value:
+                                    name: ' '
+                                    dob: ' '
+                                    gender: ' '
                 required: true
             tags:
                 - Artist
@@ -341,6 +345,10 @@ paths:
                             type: array
                             items:
                                 $ref: '#/components/schemas/MovieRole'
+                        examples:
+                            MovieRole:
+                                value:
+                                    role: some text
                 required: true
             tags:
                 - MovieRole
@@ -397,6 +405,10 @@ paths:
                     application/json:
                         schema:
                             $ref: '#/components/schemas/MovieRole'
+                        examples:
+                            movieRole:
+                                value:
+                                    role: ' '
                 required: true
             tags:
                 - MovieRole
