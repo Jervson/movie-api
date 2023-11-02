@@ -11,10 +11,10 @@ app.use("/docs", swaggerui.serve, swaggerui.setup(swaggerDocument))
 
 require("./routes/movieRoutes.js")(app)
 require("./routes/artistRoutes")(app)
-require("./routes/movieRoleRoutes.js/index.js")(app)
+require("./routes/movieRoleRoutes.js")(app)
 
-app.listen(port, () => {
-    require("./db").sync()
+app.listen(port, async () => {
+    await require("./db").sync()
         .then(console.log("Synchronized"))
         .catch((error) => console.log("Error:", error))
     console.log(`API up at: http://localhost:${port}/docs`);

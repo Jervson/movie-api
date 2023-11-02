@@ -14,5 +14,5 @@ module.exports = (dbConnection, Sequelize) => {
             allowNull: true
         }
     })
-    return Game
+    return Movie
 }

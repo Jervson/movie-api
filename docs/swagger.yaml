@@ -16,7 +16,7 @@ paths:
         description: return a list of all movies on api
         get:
             tags:
-                - movies
+                - Movie
             responses:
                 '200':
                     content:
@@ -24,24 +24,77 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/Movie'
                             examples:
                                 Movie:
-                                    value: |
-                                        [
-                                            { id: 1, name: "Shark Attack", description: "very cool" },
-                                            { id: 1, name: "Shark Attack 2", description: "very cool" },
-                                            { id: 1, name: "Shark Attack 3", description: "very cool" },
-                                            { id: 1, name: "Shark Attack 4", description: "very cool" },
-                                            { id: 1, name: "Shark Attack 5", description: "very cool" }
-                                        ]
-                    description: ok
+                                    value:
+                                        -
+                                            id: 1
+                                            name: Shark Attack
+                                            description: cool movie about sharks
+                                        -
+                                            id: 2
+                                            name: Shark Attack 2
+                                            description: cool movie about sharks again
+                    description: successful
+                '404':
+                    description: movies not found
+                '500':
+                    description: server error
+            summary: Get movies
             description: return a list of all movies on api
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Movie'
+                        examples:
+                            Movie:
+                                value:
+                                    -
+                                        id: 89
+                                        name: some text
+                                        description: some text
+                                    -
+                                        id: 19
+                                        name: some text
+                                        description: some text
+                required: true
+            tags:
+                - Movie
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Movie'
+                            examples:
+                                Movie:
+                                    value:
+                                        -
+                                            id: 97
+                                            name: some text
+                                            description: some text
+                                        -
+                                            id: 64
+                                            name: some text
+                                            description: some text
+                    description: successful
+                '404':
+                    description: movies not found
+                '500':
+                    description: server error
+            summary: Post movies
     '/movies/{id}':
         description: return a movie based on id on api
         get:
             tags:
-                - movies
+                - Movie
             parameters:
                 -
                     name: id
@@ -54,21 +107,80 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/Movie'
                             examples:
                                 Movie:
-                                    value: |-
-                                        id: 3
-                                        name: Shark Attack 3
-                                        description: Very cool
-                    description: ok
+                                    value:
+                                        -
+                                            id: 1
+                                            name: Shark Attack
+                                            description: cool movie about sharks
+                    description: successful
+                '404':
+                    description: movie not found
+                '500':
+                    description: server error
             description: return a movie based on id on api
+        put:
+            tags:
+                - Movie
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Movie'
+                    description: successful
+                '404':
+                    description: movie not found
+                '500':
+                    description: server error
+        delete:
+            tags:
+                - Movie
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Movie'
+                            examples:
+                                Movie:
+                                    value:
+                                        -
+                                            id: 72
+                                            name: some text
+                                            description: some text
+                                        -
+                                            id: 55
+                                            name: some text
+                                            description: some text
+                    description: successful
+                '404':
+                    description: movie not found
+                '500':
+                    description: server error
     /artists:
+        summary: Get artists
         description: |
             return a list of all artists on api
         get:
             tags:
-                - artists
+                - Artist
             responses:
                 '200':
                     content:
@@ -76,25 +188,86 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/Artist'
                             examples:
                                 Artist:
-                                    value: |-
-                                        [
-                                            { id: 1, name: "Kristjan", dob: 2001-08-14, gender: "Male" },
-                                            { id: 2, name: "Paul", dob: 2002-08-14, gender: "Male" },
-                                            { id: 3, name: "Taul", dob: 2003-08-14, gender: "Male" },
-                                            { id: 4, name: "Saul", dob: 2004-08-14, gender: "Male" },
-                                            { id: 5, name: "Siim", dob: 2005-08-14, gender: "Male" },
-                                        ]
+                                    value:
+                                        -
+                                            id: 1
+                                            name: Kristjan
+                                            dob: '2000-01-17'
+                                            gender: Male
+                                        -
+                                            id: 2
+                                            name: Paul
+                                            dob: '2001-01-17'
+                                            gender: Female
                     description: |
-                        ok
+                        successful
+                '404':
+                    description: Artist not found
+                '500':
+                    description: server error
+            summary: Get artists
             description: return a list of all artists on api
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Artist'
+                        examples:
+                            Artist:
+                                value:
+                                    -
+                                        id: 99
+                                        name: some text
+                                        dob: '2018-01-17'
+                                        gender: some text
+                                    -
+                                        id: 88
+                                        name: some text
+                                        dob: '2018-01-17'
+                                        gender: some text
+                required: true
+            tags:
+                - Artist
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Artist'
+                            examples:
+                                Artist:
+                                    value:
+                                        -
+                                            id: 52
+                                            name: some text
+                                            dob: '2018-01-17'
+                                            gender: some text
+                                        -
+                                            id: 74
+                                            name: some text
+                                            dob: '2018-01-17'
+                                            gender: some text
+                    description: successful
+                '404':
+                    content:
+                        application/json: {}
+                    description: artist not founnd
+                '500':
+                    description: server error
+            summary: Post artists
     '/artists/{id}':
         description: return a artist based on id on api
         get:
             tags:
-                - artists
+                - Artist
             parameters:
                 -
                     name: id
@@ -107,21 +280,75 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/Artist'
                             examples:
                                 Artist:
-                                    value: |-
-                                        id: 2
-                                        name: Paul
-                                        dob: 2003-08-14
+                                    value:
+                                        id: 1
+                                        name: Kristjan
+                                        dob: '2000-01-17'
                                         gender: Male
-                    description: ok
+                    description: successful
+                '404':
+                    description: Artist not found
+                '500':
+                    description: |
+                        server error
             description: return a movie role based on id on api
+        put:
+            tags:
+                - Artist
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Artist'
+                            examples:
+                                Artist:
+                                    value:
+                                        id: 53
+                                        name: some text
+                                        dob: '2018-01-17'
+                                        gender: some text
+                    description: successful
+                '404':
+                    description: Artist not found
+                '500':
+                    description: server error
+        delete:
+            tags:
+                - Artist
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Artist'
+                    description: successful
+                '404':
+                    description: Artist not found
+                '500':
+                    description: server error
     '/movieRoles/{id}/':
         description: return a movie role based on id on api
         get:
             tags:
-                - MovieRoles
+                - MovieRole
             parameters:
                 -
                     name: id
@@ -134,19 +361,27 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/MovieRole'
                             examples:
                                 MovieRole:
-                                    value: |-
-                                        id: 2
-                                        role: Producer
+                                    value:
+                                        -
+                                            id: 1
+                                            role: Actor
                     description: ok
+                '404':
+                    description: movieRole not found
+                '500':
+                    description: server error
             description: return a movie role based on id on api
-    /movieRoles:
-        description: return a list of all movie roles on api
-        get:
+        put:
             tags:
-                - movieRoles
+                - MovieRole
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
             responses:
                 '200':
                     content:
@@ -154,16 +389,149 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/MovieRole'
+                    description: successful
+                '404':
+                    description: movieRole not found
+                '500':
+                    description: server error
+        delete:
+            tags:
+                - MovieRole
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/MovieRole'
+                            examples:
+                                movieRole:
+                                    value:
+                                        -
+                                            id: 54
+                                            role: some text
+                                        -
+                                            id: 41
+                                            role: some text
+                    description: successful
+    /movieRoles:
+        description: return a list of all movie roles on api
+        get:
+            tags:
+                - MovieRole
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/MovieRole'
                             examples:
                                 MovieRole:
-                                    value: |-
-                                        [
-                                            { id: 1, role "Actor"},
-                                            { id: 2, role "Producer"},
-                                            { id: 3, role "Extra"},
-                                            { id: 4, role "Director"},
-                                            
-                                        ]
-                    description: ok
+                                    value:
+                                        -
+                                            id: 1
+                                            role: Actor
+                                        -
+                                            id: 2
+                                            role: Director
+                    description: successful
+                '404':
+                    description: MovieRole not found
+                '500':
+                    description: server error
+            summary: Get movieRoles
             description: return a list of all movie roles on api
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/MovieRole'
+                required: true
+            tags:
+                - MovieRole
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/MovieRole'
+                            examples:
+                                MovieRole:
+                                    value:
+                                        -
+                                            id: 16
+                                            role: some text
+                                        -
+                                            id: 77
+                                            role: some text
+                    description: successful
+                '404':
+                    description: movieRole not found
+                '500':
+                    description: server error
+            summary: Post movieRoles
+components:
+    schemas:
+        Artist:
+            title: Root Type for Artist
+            description: ''
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                name:
+                    type: string
+                dob:
+                    format: date
+                    type: string
+                gender:
+                    type: string
+            example:
+                id: 1
+                name: Kristjan
+                dob: '2003-08-14'
+                gender: Male
+        MovieRole:
+            title: Root Type for MovieRole
+            description: ''
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                role:
+                    type: string
+            example:
+                id: 1
+                role: Actor
+        Movie:
+            title: Root Type for Movie
+            description: ''
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                name:
+                    type: string
+                description:
+                    type: string
+            example:
+                id: 5
+                name: Shark Attack
+                description: cool movie about shark

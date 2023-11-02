@@ -18,5 +18,5 @@ module.exports = (dbConnection, Sequelize) => {
             allowNull: false
         }
     })
-    return Player
+    return Artist
 }
