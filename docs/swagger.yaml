@@ -133,17 +133,11 @@ paths:
                     in: path
                     required: true
             responses:
-                '200':
+                '204':
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Movie'
-                            examples:
-                                Movie:
-                                    value:
-                                        id: 40
-                                        name: some text
-                                        description: some text
                     description: successful
                 '404':
                     description: movie not found
@@ -283,19 +277,10 @@ paths:
                     in: path
                     required: true
             responses:
-                '200':
+                '204':
                     content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Artist'
-                            examples:
-                                Artist:
-                                    value:
-                                        id: 53
-                                        name: some text
-                                        dob: '2018-01-17'
-                                        gender: some text
-                    description: successful
+                        application/json: {}
+                    description: succesful
                 '404':
                     description: Artist not found
                 '500':
@@ -400,7 +385,7 @@ paths:
                                         -
                                             id: 1
                                             role: Actor
-                    description: ok
+                    description: successful
                 '404':
                     description: movieRole not found
                 '500':
@@ -421,16 +406,11 @@ paths:
                     in: path
                     required: true
             responses:
-                '200':
+                '204':
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/MovieRole'
-                            examples:
-                                MovieRole:
-                                    value:
-                                        id: 73
-                                        role: some text
                     description: successful
                 '404':
                     description: movieRole not found

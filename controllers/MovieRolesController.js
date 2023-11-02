@@ -23,7 +23,7 @@ exports.getAll = async (req, res) => {
 }
 exports.getById = async (req, res) => {
     const foundMovieRole = await movieRoles.findByPk(req.params.id)
-    if (foundMovie === null) {
+    if (foundMovieRole === null) {
         return res.status(404).send({ error: `Role not found` })
     }
     res.json(foundMovieRole)
@@ -31,7 +31,7 @@ exports.getById = async (req, res) => {
 // UPDATE
 exports.editById = async (req, res) => {
     const foundMovieRole = await movieRoles.findByPk(req.params.id)
-    if (foundMovie === null) {
+    if (foundMovieRole === null) {
         return res.status(404).send({ error: `Role not found` })
     }
     const updateResult = await movieRoles.update({ ...req.body }, {
