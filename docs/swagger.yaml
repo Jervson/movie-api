@@ -15,7 +15,6 @@ paths:
     /movies:
         description: return a list of all movies on api
         get:
-            requestBody: {}
             tags:
                 - movies
             responses:
@@ -43,6 +42,11 @@ paths:
         get:
             tags:
                 - movies
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
             responses:
                 '200':
                     content:
@@ -90,7 +94,12 @@ paths:
         description: return a artist based on id on api
         get:
             tags:
-                - artist
+                - artists
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
             responses:
                 '200':
                     content:
@@ -113,6 +122,11 @@ paths:
         get:
             tags:
                 - MovieRoles
+            parameters:
+                -
+                    name: id
+                    in: path
+                    required: true
             responses:
                 '200':
                     content:
