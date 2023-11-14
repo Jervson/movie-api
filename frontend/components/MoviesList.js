@@ -12,12 +12,7 @@ export default {
         </tr>
     </table>
     `,
-    emits: {
-        showModal: (movie) => {
-            console.log("Validation", movie)
-            return movie.id && movie.name && movie.description
-        }
-    },
+    emits: ["showModal"],
     data() {
         return {
             movies: []
@@ -28,8 +23,7 @@ export default {
     },
     methods: {
         getMovie: async function (id) {
-            const movieInModal = await (await fetch("http://localhost:8080/movies/" + id)).json()
-            console.log("MoviesList: ", movieInModal)
+            const movieInModal = await (await fetch(this.API_URL + "/movies/" + id)).json()
             this.$emit("showModal", movieInModal)
         }
     }
