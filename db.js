@@ -30,12 +30,12 @@ db.movieRoles.belongsTo(db.artists)
 
 
 sync = async () => {
-    if (process.env.DROP_DB) {
+    if (process.env.DROP_DB === "true") {
         console.log("Begin DROP")
         await db.connection.query('SET FOREIGN_KEY_CHECKS = 0')
         console.log("Checks disabled")
         await db.connection.sync({ force: true })
-        console.log('Database synchronised.');
+        console.log('Database synchronised.')
         await db.connection.query('SET FOREIGN_KEY_CHECKS = 1')
         console.log("Checks enabled")
 
@@ -71,8 +71,10 @@ sync = async () => {
         console.log("movieRole created: ", createdMR)
     }
     else {
+        console.log("Begin ALTER")
         await db.connection.sync({ alter: true }) // Alter existing to match the model
-    }
+        console.log('Database synchronised.')   
+     }
 }
 
 module.exports = { db, sync }
