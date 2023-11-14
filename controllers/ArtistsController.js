@@ -7,7 +7,7 @@ exports.createNew = async (req, res) => {
     if (!req.body.name) {
         return res.status(400).send({ error: "Required parameter 'name' is missing" })
     }
-    const createdArtist = await artists.create({ ...req.body }, {
+    const createdArtist = await artists.create(req.body, {
         fields: ["name", "dob", "gender"]
     })
     res.status(201)
