@@ -79,8 +79,8 @@ paths:
                                             name: some text
                                             description: some text
                     description: successful
-                '404':
-                    description: movies not found
+                '400':
+                    description: movies was not created
                 '500':
                     description: server error
             summary: Post movies
@@ -132,7 +132,7 @@ paths:
                     in: path
                     required: true
             responses:
-                '204':
+                '202':
                     content:
                         application/json:
                             schema:
@@ -223,10 +223,10 @@ paths:
                                 items:
                                     $ref: '#/components/schemas/Artist'
                     description: successful
-                '404':
+                '400':
                     content:
                         application/json: {}
-                    description: artist not founnd
+                    description: artist not created
                 '500':
                     description: server error
             summary: Post artists
@@ -269,9 +269,9 @@ paths:
                         examples:
                             Artist:
                                 value:
-                                    name: ' '
-                                    dob: ' '
-                                    gender: ' '
+                                    name: some text
+                                    dob: '2018-01-17'
+                                    gender: some text
                 required: true
             tags:
                 - Artist
@@ -281,9 +281,11 @@ paths:
                     in: path
                     required: true
             responses:
-                '204':
+                '202':
                     content:
-                        application/json: {}
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Artist'
                     description: succesful
                 '404':
                     description: Artist not found
@@ -366,7 +368,7 @@ paths:
                                         id: 32
                                         role: some text
                     description: successful
-                '404':
+                '400':
                     description: movieRole not found
                 '500':
                     description: server error
@@ -418,7 +420,7 @@ paths:
                     in: path
                     required: true
             responses:
-                '204':
+                '202':
                     content:
                         application/json:
                             schema:
