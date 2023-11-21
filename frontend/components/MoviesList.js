@@ -2,14 +2,18 @@ export default {
     /*html*/
     template: `
     <table id="moviesTable" class="table table-striped table-bordered">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-        <tr v-for="movie in movies">
-            <td @click="getMovie(movie.id)">{{ movie.name }}</td>
-            <td>{{ movie.description }}</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="movie in movies">
+                <td @click="getMovie(movie.id)">{{ movie.name }}</td>
+                <td>{{ movie.description }}</td>
+            </tr>
+        </tbody>
     </table>
     `,
     emits: ["showModal"],

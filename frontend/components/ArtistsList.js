@@ -4,10 +4,13 @@ export default {
     <table id="artistsTable" class="table table-striped table-bordered">
         <tr>
             <th>Name</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
         </tr>
         <tr v-for="artist in artists">
             <td @click="getArtist(artist.id)">{{ artist.name }}</td>
-        </tr>
+            <td>{{artist.dob}}</td>
+            <td>{{artist.gender}}</td>
     </table>
     `,
     emits: ["showModal"],
