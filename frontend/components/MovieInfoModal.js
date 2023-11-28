@@ -1,3 +1,4 @@
+import confirmationModal from "./ConfirmationModal.js"
 export default {
     /*html*/
     template: `
@@ -26,19 +27,35 @@ export default {
                 </table>
             </div>
             <div class="modal-footer">
-                <template v-if="isEditing">
-                    <button type="button" class="btn btn-success" @click="savemodifiedMovie">Save</button>
-                    <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
-                </template>
-                <template v-else>
-                    <button type="button" class="btn btn-warning" @click="startEditing">Edit</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </template>
+                <div class="container">
+                    <div class="row">
+                        <template v-if="isEditing">
+                            <div class="col me-auto">
+                                <button type="button" class="btn btn-danger" data-bs-target="#confirmationModal" data-bs-toggle="modal">Delete</button>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-success mx-2" @click="saveModifiedMovie">Save</button>
+                                <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="col me-auto"></div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-warning mx-2" @click="startEditing">Edit</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<confirmation-modal :target="'#movieInfoModal'" @confirmed="deleteMovie"></confirmation-modal>
     `,
+    components: {
+        confirmationModal
+    },
     emits: ["movieUpdated"],
     props: {
         movieInModal: {}
@@ -57,7 +74,7 @@ export default {
         cancelEditing() {
             this.isEditing = false
         },
-        async savemodifiedMovie() {
+        async saveModifiedMovie() {
             console.log("Saving:", this.modifiedMovie)
             const rawResponse = await fetch(this.API_URL + "/movies/" + this.modifiedMovie.id, {
                 method: 'PUT',
@@ -70,6 +87,9 @@ export default {
             console.log(rawResponse);
             this.$emit("movieUpdated", this.modifiedMovie)
             this.isEditing = false
+        },
+        deleteMovie() {
+            console.log("DELETE confirmed");
         }
     }
 }
