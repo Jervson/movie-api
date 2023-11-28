@@ -39,7 +39,7 @@ exports.editById = async (req, res) => {
     if (updateResult[0] == 0) {
         return res.status(500).send({ error: "update failed" })
     }
-    res.status(204)
+    res.status(202)
         .location(`${getBaseurl(req)}/movies/${req.params.id}`)
         .send()
 }

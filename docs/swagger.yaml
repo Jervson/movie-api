@@ -48,9 +48,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: array
-                            items:
-                                $ref: '#/components/schemas/Movie'
+                            $ref: '#/components/schemas/Movie'
                         examples:
                             Movie:
                                 value:
@@ -132,7 +130,7 @@ paths:
                     in: path
                     required: true
             responses:
-                '202':
+                '204':
                     content:
                         application/json:
                             schema:
@@ -202,9 +200,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: array
-                            items:
-                                $ref: '#/components/schemas/Artist'
+                            $ref: '#/components/schemas/Artist'
                         examples:
                             Artist:
                                 value:
@@ -281,7 +277,7 @@ paths:
                     in: path
                     required: true
             responses:
-                '202':
+                '204':
                     content:
                         application/json:
                             schema:
@@ -344,9 +340,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: array
-                            items:
-                                $ref: '#/components/schemas/MovieRole'
+                            $ref: '#/components/schemas/MovieRole'
                         examples:
                             MovieRole:
                                 value:
@@ -420,7 +414,7 @@ paths:
                     in: path
                     required: true
             responses:
-                '202':
+                '204':
                     content:
                         application/json:
                             schema:
