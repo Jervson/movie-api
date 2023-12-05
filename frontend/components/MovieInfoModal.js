@@ -88,8 +88,27 @@ export default {
             this.$emit("movieUpdated", this.modifiedMovie)
             this.isEditing = false
         },
-        deleteMovie() {
-            console.log("DELETE confirmed");
+        async deleteMovie() {   
+            try {
+                const rawResponse = await fetch(this.API_URL + "/movies/" + this.movieInModal.id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+    
+                if (rawResponse.ok) {
+                    console.log("Movie deleted successfully");
+                    this.$emit("movieUpdated", null);
+                } else {
+                    console.error("Failed to delete the movie");
+                }
+                this.isEditing = false;
+    
+            } catch (error) {
+                console.error("An error occurred while deleting the movie", error);
+            }
         }
     }
 }
