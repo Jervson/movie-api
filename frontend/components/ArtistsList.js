@@ -11,6 +11,7 @@ export default {
             <td @click="getArtist(artist.id)">{{ artist.name }}</td>
             <td>{{artist.dob}}</td>
             <td>{{artist.gender}}</td>
+        </tr>
     </table>
     `,
     emits: ["showModal"],

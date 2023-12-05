@@ -100,7 +100,7 @@ export default {
     
                 if (rawResponse.ok) {
                     console.log("Movie deleted successfully");
-                    this.$emit("movieUpdated", null);
+                    this.$emit("movieUpdated", {});
                 } else {
                     console.error("Failed to delete the movie");
                 }
@@ -109,6 +109,33 @@ export default {
             } catch (error) {
                 console.error("An error occurred while deleting the movie", error);
             }
+        },
+        createNewMovie() {
+            try{
+                console.log("Creating", this.newMovie);
+                fetch(this.API_URL + "/movies", {
+                    method:"POST",
+                    headers: {
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(this.newMovie)               
+                })
+                    .then(response => response.json())
+                    .then(newMovie => {
+                       console.log("Created", newMovie);
+                       this.$emit("movieUpdated", newMovie);
+                       this.cancelCreating();
+                    });
+            } catch (error){
+                console.error(error);
+            }
+        },
+        cancelCreating() {
+            this.isCreating = false;
+            this.newMovie = {
+                name: "",
+                description: ""
+            };
         }
     }
 }

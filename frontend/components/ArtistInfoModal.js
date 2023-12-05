@@ -1,3 +1,4 @@
+import confirmationModal from "./ConfirmationModal.js"
 export default {
     /*html*/
     template: `
@@ -18,22 +19,48 @@ export default {
                         <td v-if="isEditing"><input v-model="modifiedArtist.name"></td>
                         <td v-else>{{artistInModal.name}}</td>
                     </tr>
+                    <tr>
+                        <th>Date of Birth</th>
+                        <td v-if="isEditing"><input v-model="modifiedArtist.dob"></td>
+                        <td v-else>{{artistInModal.dob}}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td v-if="isEditing"><input v-model="modifiedArtist.gender"></td>
+                        <td v-else>{{artistInModal.gender}}</td>
+                    </tr>
                 </table>
             </div>
             <div class="modal-footer">
-                <template v-if="isEditing">
-                    <button type="button" class="btn btn-success" @click="saveModifiedArtist">Save</button>
-                    <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
-                </template>
-                <template v-else>
-                    <button type="button" class="btn btn-warning" @click="startEditing">Edit</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </template>
+                <div class="container">
+                    <div class="row">
+                        <template v-if="isEditing">
+                            <div class="col me-auto">
+                                <button type="button" class="btn btn-danger" data-bs-target="#confirmationModal" data-bs-toggle="modal">Delete</button>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-success mx-2" @click="saveModifiedArtist">Save</button>
+                                <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
+                             </div>
+                        </template>
+                        <template v-else>
+                           <div class="col me-auto"></div>
+                          <div class="col-auto">
+                             <button type="button" class="btn btn-warning mx-2" @click="startEditing">Edit</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<confirmation-modal :target="'#artistInfoModal'" @confirmed="deleteArtist"></confirmation-modal>
     `,
+    components: {
+        confirmationModal
+    },
     emits: ["artistUpdated"],
     props: {
         artistInModal: {}
@@ -65,6 +92,56 @@ export default {
             console.log(rawResponse);
             this.$emit("artistUpdated", this.modifiedArtist)
             this.isEditing = false
+        },
+        async deleteArtist() {   
+            try {
+                const rawResponse = await fetch(this.API_URL + "/artists/" + this.artistInModal.id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+    
+                if (rawResponse.ok) {
+                    console.log("Artist deleted successfully");
+                    this.$emit("artistUpdated", {});
+                } else {
+                    console.error("Failed to delete the artist");
+                }
+                this.isEditing = false;
+    
+            } catch (error) {
+                console.error("An error occurred while deleting the artist", error);
+            }
+        },
+        createNewArtist() {
+            try{
+                console.log("Creating", this.newArtist);
+                fetch(this.API_URL + "/artists", {
+                    method:"POST",
+                    headers: {
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(this.newArtist)               
+                })
+                    .then(response => response.json())
+                    .then(newArtist => {
+                       console.log("Created", newArtist);
+                       this.$emit("artistUpdated", newArtist);
+                       this.cancelCreating();
+                    });
+            } catch (error){
+                console.error(error);
+            }
+        },
+        cancelCreating() {
+            this.isCreating = false;
+            this.newArtist = {
+                name: "",
+                dob: "",
+                gender: ""
+            };
         }
     }
 }

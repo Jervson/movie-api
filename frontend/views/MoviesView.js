@@ -9,7 +9,7 @@ export default {
     <movies-list :key="update" @showModal="openModal"></movies-list>
     <movie-info-modal @movieUpdated="updateView" :movieInModal="movieInModal"></movie-info-modal>
     <new-object-modal id="newMovieModal" @save="saveNewMovie">
-        <movie-form v-model:name="movieInModal.name" v-model:price="movieInModal.price"></movie-form>
+        <movie-form v-model:name="movieInModal.name" v-model:description="movieInModal.description"></movie-form>
         <div class="alert alert-danger" role="alert" v-show="error">{{error}}</div>
     </new-object-modal> 
     `,
@@ -22,7 +22,7 @@ export default {
     data() {
         return {
             update: 0,
-            movieInModal: { id: "", name: "", price: "" },
+            movieInModal: { id: "", name: "", description: "" },
             newMovieModal: {},
             error: ""
         }
@@ -42,25 +42,25 @@ export default {
         updateView(movie) {
             this.update++
             this.movieInModal = movie
+        },
+        async saveNewMovie() {
+            console.log("Saving:", this.movieInModal)
+            const rawResponse = await fetch(this.API_URL + "/movies/", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.movieInModal)
+            });
+            if (rawResponse.ok) {
+                this.newMovieModal.hide()
+                this.update++
+            }
+            else {
+                const errorResponse = await rawResponse.json()
+                this.error = errorResponse.error
+            }
         }
-    },
-    async saveNewMovie() {
-        console.log("Saving:", this.movieInModal)
-        const rawResponse = await fetch(this.API_URL + "/movies/", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.movieInModal)
-        });
-        if (rawResponse.ok) {
-            this.newMovieModal.hide()
-            this.update++
-        }
-        else {
-            const errorResponse = await rawResponse.json()
-            this.error = errorResponse.error
-        }
-    }
+    },  
 }
