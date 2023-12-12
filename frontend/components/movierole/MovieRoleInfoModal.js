@@ -69,11 +69,11 @@ export default {
     methods: {
         async fetchArtists() {
             const movieRole = await (await fetch(this.API_URL + "/movieroles/"+ this.movieRoleInModal.id)).json();
-            this.artists = movieRole.Artists;
+            this.artists = movieRole.Artist;
         },
         async fetchMovies() {
             const movieRole = await (await fetch(this.API_URL + "/movieroles/"+ this.movieRoleInModal.id)).json();
-            this.movies = movieRole.Movies;
+            this.movies = movieRole.Movie;
         },
         startEditing(){
             this.modifiedMovieRole = {...this.movieRoleInModal}
