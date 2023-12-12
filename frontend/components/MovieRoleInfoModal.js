@@ -1,6 +1,6 @@
-import confirmationModal from "../ConfirmationModal.js"
-import movieRoleDetails from "./MovieRoleDetails.js";
-import movieRoleForm from "./MovieRoleForm.js";
+import confirmationModal from "./ConfirmationModal.js"
+import movieRoleDetails from "./movierole/MovieRoleDetails.js";
+import movieRoleForm from "./movierole/MovieRoleForm.js";
 export default {
     /*html*/
     template: `
@@ -11,8 +11,8 @@ export default {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <movieRole-form v-if="isEditing" v-model:role="modifiedMovieRole.role" v-model:id="modifiedMovieRole.id" />
-                <movieRole-details v-else v-model:movieRoleInModal="movieRoleInModal" v-model:artists="artists" v-model:movies="movies" />
+                <movieRole-form v-if="isEditing" v-model:role="modifiedMovieRole.role" v-model:artistid="modifiedMovieRole.ArtistId" v-model:movieid="modifiedMovieRole.MovieId" />
+                <movieRole-details v-else v-model:movieRoleInModal="movieRoleInModal" v-model:artists="artistName" v-model:movies="movieName" />
             </div>
             <div class="modal-footer">
                 <div class="container">
@@ -58,23 +58,33 @@ export default {
             movies: []
         }
     },
-    watch: {
-        'movieRoleInModal.id': function(newVal) {
-            if (newVal) {
-                this.fetchArtists();
-                this.fetchMovies();
+    computed: {
+        movieName:{
+            get(){
+                if(this.movieRoleInModal.MovieId == null) return "No Movie";
+                const movie = this.movies.find(movie => movie.id == this.movieRoleInModal.movieId)
+                if(movie) return movie.name
+                return "";
             }
         }
     },
+    async created() {
+        this.movie = await (await fetch(this.API_URL + "/movie")).json()
+    },
+    computed: {
+        artistName:{
+            get(){
+                if(this.movieRoleInModal.ArtistId == null) return "No Artist";
+                const artist = this.artists.find(artist => artist.id == this.movieRoleInModal.artistId)
+                if(artist) return artist.name
+                return "";
+            }
+        }
+    },
+    async created() {
+        this.artist = await (await fetch(this.API_URL + "/artist")).json()
+    },
     methods: {
-        async fetchArtists() {
-            const movieRole = await (await fetch(this.API_URL + "/movieroles/"+ this.movieRoleInModal.id)).json();
-            this.artists = movieRole.Artist;
-        },
-        async fetchMovies() {
-            const movieRole = await (await fetch(this.API_URL + "/movieroles/"+ this.movieRoleInModal.id)).json();
-            this.movies = movieRole.Movie;
-        },
         startEditing(){
             this.modifiedMovieRole = {...this.movieRoleInModal}
             this.isEditing = true

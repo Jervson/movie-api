@@ -27,14 +27,16 @@ export default{
             </select>
         </tr>
     </table>`,
-    props: ["id","role","artists","movies"],
+    props: ["id","role","artistid","movieid"],
     emits: ["update:role","update:artistid","update:movieid"],
     async created() {
-        this.movieRoles = await (await fetch(this.API_URL + "/movieroles")).json()
+        this.movies = await (await fetch(this.API_URL + "/movies")).json()
+        this.artists = await (await fetch(this.API_URL + "/artists")).json()
     },
     data() {
         return{
-            movieRoles:[]
+            movies:[],
+            artists:[]
         }
     },
 }

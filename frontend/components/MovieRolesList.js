@@ -8,9 +8,15 @@ export default {
             <th>Movie</th>
         </tr>
         <tr v-for="movieRole in movieRoles">
-            <td> {{ movieRole.Artist.name}} </td>
+            <td>
+                <span v-if="movieRole.Artist">{{ movieRole.Artist.name }}</span>
+                <span v-else>No Artist</span>
+                </td>
             <td @click="getMovieRole(movieRole.id)">{{ movieRole.role }}</td>
-            <td> {{ movieRole.Movie.name}} </td>
+            <td>
+                <span v-if="movieRole.Movie">{{ movieRole.Movie.name }}</span>
+                <span v-else>No Movie</span>
+                </td>
         </tr>
     </table>
     `,

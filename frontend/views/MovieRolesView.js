@@ -1,5 +1,5 @@
-import movieRolesList from "../components/movierole/MovieRolesList.js"
-import movieRoleInfoModal from "../components/movierole/MovieRoleInfoModal.js"
+import movieRolesList from "../components/MovieRolesList.js"
+import movieRoleInfoModal from "../components/MovieRoleInfoModal.js"
 import movieRoleForm from "../components/movierole/MovieRoleForm.js"
 import newObjectModal from "../components/NewObjectModal.js"
 export default {
@@ -10,7 +10,7 @@ export default {
     <movieRoles-list :key="update" @showModal="openModal"></movieRoles-list>
     <movieRole-info-modal @movieRoleUpdated="updateView" :movieRoleInModal="movieRoleInModal"></movieRole-info-modal>
     <new-object-modal id="newMovieRoleModal" @save="saveNewMovieRole">
-        <movieRole-form v-model:role="movieRoleInModal.role"></movieRole-form>
+        <movieRole-form v-model:role="movieRoleInModal.role" v-model:artistid="movieRoleInModal.ArtistId" v-model:movieid="movieRoleInModal.MovieId"></movieRole-form>
         <div class="alert alert-danger" role="alert" v-show="error">{{error}}</div>
     </new-object-modal>
     `,
@@ -23,7 +23,7 @@ export default {
     data() {
         return {
             update: 0,
-            movieRoleInModal: { id: "", role: "" },
+            movieRoleInModal: { id: "", role: "", ArtitstId: "", MovieId: ""},
             error:"",
             newMovieRoleModal:{}
         }

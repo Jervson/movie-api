@@ -7,9 +7,9 @@ export default {
     </tr>  
     <tr>
         <th>Artists</th>
-        <div v-for="artist in artists">
-            {{artist.name}}
-        </div>
+        <td>
+            {{artistName}}
+        </td>
     </tr>
     <tr>
         <th>Role</th>
@@ -18,10 +18,10 @@ export default {
 
     <tr>
         <th>Movies</th>
-        <div v-for="movie in movies">
-            {{movie.name}}
-    </div>
-</tr>
+        <td>
+            {{movieName}}
+        </td>
+    </tr>
 </table>`,
-props:["movieRoleInModal","artists", "movies"],
+props:["movieRoleInModal","artistName", "movieName"],
 }
