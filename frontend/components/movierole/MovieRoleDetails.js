@@ -3,7 +3,7 @@ export default {
     template: `<table class="table table-striped">
     <tr>
         <th>Id</th>
-        <td>{{movieRoleInModal && movieRoleInModal.id}}</td>
+        <td>{{movieRoleInModal.id}}</td>
     </tr>  
     <tr>
         <th>Artists</th>
@@ -13,7 +13,7 @@ export default {
     </tr>
     <tr>
         <th>Role</th>
-        <td>{{movieRoleInModal && movieRoleInModal.role}}</td>
+        <td>{{movieRoleInModal.role}}</td>
     </tr>
 
     <tr>
